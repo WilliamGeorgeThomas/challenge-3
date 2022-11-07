@@ -17,8 +17,12 @@ function generatePassword() {
   let allChoices = []
 
   //ask user how long password
-  let passwordLength = window.prompt('Please choose a number between 1-128 for your password length');
+  let passwordLength = window.prompt('Please choose a number between 1 and 128 for your password length');
   //TODO: validate that they entered a number between 1-128
+  if (passwordLength < 1 || passwordLength > 128) {
+    window.alert('Please make sure you choose a password length between 1 and 128 characters');
+    generatePassword();
+  }
 
   //ask user if they want lowercase
   let isLower = window.confirm("Would you like to include lowercase letters?");
@@ -31,6 +35,15 @@ function generatePassword() {
 
   //ask user if they want special characters
   let isSpecial = window.confirm("Would you like to include special characters?");
+
+
+  //validate that at least one of the 4 criteria has been selected 
+
+  while (isLower !== true && isUpper !== true && isNumbers !== true && isSpecial !== true) {
+    window.alert(`Please make sure you select at least one of the following options: \nLowercase Letters \nUppercase Letters \nNumbers \nSpecial Characters`)
+    generatePassword();
+  }
+
 
   password = [];
   if (isLower === true) {
