@@ -19,9 +19,9 @@ function generatePassword() {
   //ask user how long password
   let passwordLength = window.prompt('Please choose a number between 1 and 128 for your password length');
   //TODO: validate that they entered a number between 1-128
-  if (passwordLength < 1 || passwordLength > 128) {
+  if (passwordLength < 1 || passwordLength > 128 || isNaN(passwordLength)) {
     window.alert('Please make sure you choose a password length between 1 and 128 characters');
-    generatePassword();
+    return null;
   }
 
   //ask user if they want lowercase
@@ -39,9 +39,10 @@ function generatePassword() {
 
   //validate that at least one of the 4 criteria has been selected 
 
-  while (isLower !== true && isUpper !== true && isNumbers !== true && isSpecial !== true) {
+  if (isLower === false && isUpper === false && isNumbers === false && isSpecial === false) {
     window.alert(`Please make sure you select at least one of the following options: \nLowercase Letters \nUppercase Letters \nNumbers \nSpecial Characters`)
-    generatePassword();
+    isLower = true;
+    return null;
   }
 
 
@@ -49,15 +50,31 @@ function generatePassword() {
   if (isLower === true) {
     //TODO: pick one random number and push into password
     allChoices = allChoices.concat(lowerCase);
+    let maximum = lowerCase.length - 1;
+    let rnd = Math.floor(Math.random() * (maximum - 0 + 1)) + 0;
+    password.push(lowerCase[rnd]);
+    passwordLength--;
   }
   if (isUpper === true) {
     allChoices = allChoices.concat(upperCase);
+    let maximum = upperCase.length - 1;
+    let rnd = Math.floor(Math.random() * (maximum - 0 + 1)) + 0;
+    password.push(upperCase[rnd]);
+    passwordLength--;
   }
   if (isNumbers === true) {
     allChoices = allChoices.concat(number);
+    let maximum = number.length - 1;
+    let rnd = Math.floor(Math.random() * (maximum - 0 + 1)) + 0;
+    password.push(number[rnd]);
+    passwordLength--;
   }
   if (isSpecial === true) {
     allChoices = allChoices.concat(specialCharacter);
+    let maximum = specialCharacter.length - 1;
+    let rnd = Math.floor(Math.random() * (maximum - 0 + 1)) + 0;
+    password.push(specialCharacter[rnd]);
+    passwordLength--;
   }
   for (let i = 0; i < passwordLength; i++) {
 
